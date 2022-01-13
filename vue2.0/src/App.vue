@@ -1,28 +1,45 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <todo-list
+      :list="list"
+      :value="doneList"
+      @change="debug"
+      @listChange="e => this.list = e"
+    />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import TodoList from './components/todo-list'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,
+    TodoList
   },
-};
+  data () {
+    return {
+      doneList: [],
+      list: [
+        {
+          description: '1',
+          id: 1
+        },
+        {
+          description: '2',
+          id: 2
+        }
+      ]
+    }
+  },
+  methods: {
+    debug (e) {
+      console.log(e)
+      this.doneList = e
+    }
+  }
+}
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
