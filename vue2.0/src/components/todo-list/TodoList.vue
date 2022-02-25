@@ -1,24 +1,24 @@
 <template>
   <div class="todo-list_container">
-    <ul class="todo-list_ul--todo">
-      2
+    <slot name="groupTitleTodo"></slot>
+    <ul class="todo-list_ul todo-list_ul--todo">
       <li v-for="item of todoList" :key="item.id">
         <todo-list-item
           :description="item.description"
-          :finished="false"
+          :done="false"
           @descriptionChange="v => descriptionChange(v, item.id)"
-          @finishedChange="e => finishedChange(e, item.id)"
+          @doneChange="e => doneChange(e, item.id)"
         />
       </li>
     </ul>
-    <ul class="todo-list_ul--done">
-      1
+    <slot name="groupTitleDone"></slot>
+    <ul class="todo-list_ul todo-list_ul--done">
       <li v-for="item of doneList" :key="item.id">
         <todo-list-item
           :description="item.description"
-          :finished="true"
+          :done="true"
           @descriptionChange="e => descriptionChange(e, item.id)"
-          @finishedChange="e => finishedChange(e, item.id)"
+          @doneChange="e => doneChange(e, item.id)"
         />
       </li>
     </ul>
@@ -43,12 +43,6 @@ export default {
       default: () => []
     }
   },
-
-  // watch: {
-  //   list () {
-  //     this.$forceUpdate()
-  //   }
-  // },
 
   data () {
     return {}
@@ -78,7 +72,7 @@ export default {
       })
       this.$emit('listChange', newList)
     },
-    finishedChange (v, id) {
+    doneChange (v, id) {
       let newValue = null
       if (v) {
         newValue = [...this.value]
@@ -92,4 +86,8 @@ export default {
 }
 </script>
 <style lang='scss' scoped>
+.todo-list_ul {
+  margin-top: 0;
+  margin-bottom: 0
+}
 </style>
