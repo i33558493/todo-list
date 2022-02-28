@@ -22,7 +22,6 @@
       type="text"
       :value="description"
       ref="textInput"
-      @blur="onDescriptionBlur"
     />
   </div>
 </template>
@@ -53,26 +52,23 @@ export default {
     },
     save () {
       this.$refs.textInput.blur()
-      this.onDescriptionBlur()
-    },
-    edit () {
-      this.isEditable = true
-      this.$refs.textInput.focus()
-    },
-    // 事件处理函数
-    onDblclick (e) {
-      // if (e.target === this.$refs.checkbox) {
-      //   return false
-      // }
-      this.edit()
-    },
-    onDescriptionBlur (e) {
-      if (e.target.value !== this.description) {
-        this.$emit('descriptionChange', e.target.value)
+      if (this.$refs.textInput.value !== this.description) {
+        this.$emit('descriptionChange', this.$refs.textInput.value)
       }
       this.$nextTick(() => {
         this.isEditable = false
       })
+    },
+    edit () {
+      this.isEditable = true
+      this.$nextTick(() => {
+        this.$refs.textInput.focus()
+        this.$refs.textInput.select()
+      })
+    },
+    // 事件处理函数
+    onDblclick () {
+      this.edit()
     },
     onContainerBlur (e) {
       this.save()

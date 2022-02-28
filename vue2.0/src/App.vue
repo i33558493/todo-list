@@ -3,7 +3,6 @@
     <todo-list
       :list="list"
       :value="doneList"
-      @change="debug"
       @listChange="e => this.list = e"
     />
   </div>
@@ -33,10 +32,6 @@ export default {
     }
   },
   methods: {
-    debug (e) {
-      console.log(e)
-      this.doneList = e
-    }
   }
 }
 </script>
