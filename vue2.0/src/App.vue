@@ -2,8 +2,7 @@
   <div id="app">
     <todo-list
       :list="list"
-      :value="doneList"
-      @listChange="e => this.list = e"
+      v-model="doneList"
     />
   </div>
 </template>

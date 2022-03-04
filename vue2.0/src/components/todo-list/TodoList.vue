@@ -6,8 +6,8 @@
         <todo-list-item
           :description="item.description"
           :done="false"
-          @descriptionChange="v => descriptionChange(v, item.id)"
-          @doneChange="e => doneChange(e, item.id)"
+          @descriptionChange="v => onDescriptionChange(v, item.id)"
+          @doneChange="e => onDoneChange(e, item.id)"
         />
       </li>
     </ul>
@@ -17,8 +17,8 @@
         <todo-list-item
           :description="item.description"
           :done="true"
-          @descriptionChange="e => descriptionChange(e, item.id)"
-          @doneChange="e => doneChange(e, item.id)"
+          @descriptionChange="e => onDescriptionChange(e, item.id)"
+          @doneChange="e => onDoneChange(e, item.id)"
         />
       </li>
     </ul>
@@ -44,6 +44,11 @@ export default {
     }
   },
 
+  model: {
+    'prop': 'value',
+    'event': 'change'
+  },
+
   data () {
     return {}
   },
@@ -60,7 +65,7 @@ export default {
   mounted () {},
 
   methods: {
-    descriptionChange (v, id) {
+    onDescriptionChange (v, id) {
       const newList = this.list.map(i => {
         if (i.id === id) {
           return {
@@ -72,7 +77,7 @@ export default {
       })
       this.$emit('listChange', newList)
     },
-    doneChange (v, id) {
+    onDoneChange (v, id) {
       let newValue = null
       if (v) {
         newValue = [...this.value]
