@@ -62,8 +62,8 @@ export default {
     edit () {
       this.isEditable = true
       this.$nextTick(() => {
-        this.$refs.textInput.focus()
-        this.$refs.textInput.select()
+        this.$refs.textInput?.focus()
+        this.$refs.textInput?.select()
       })
     },
     // 事件处理函数
